@@ -59,7 +59,7 @@ window.connect("delete-event", Gtk.main_quit)
 window.set_default_size(700, 300)
 
 image = builder.get_object("image1")
-image.set_from_file('player.png')
+image.set_from_file('images/player.png')
 
 progress = builder.get_object("progressbar1")
 progress.set_fraction(1)
