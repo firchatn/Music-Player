@@ -4,13 +4,29 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import random
 
+# init variables
+
+ispaused = False
+
 class Handler:
+    
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
     def playmusic(self,play):
         mixer.music.play()
 
+    def stopmusic(self,stop):
+        mixer.music.stop()
+        
+    def pausemusic(self,pause):
+        global ispaused
+        if ispaused:
+            mixer.music.unpause()
+            ispaused = False
+        else:
+            mixer.music.pause()
+            ispaused = True
             
     
 builder = Gtk.Builder()
