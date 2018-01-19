@@ -9,17 +9,13 @@ import os
 
 ispaused = False
 
-
-
-
+#     methods
 
 def treeviewItems():
     store = Gtk.ListStore(str)
     files = [f for f in os.listdir('.') if os.path.isfile(f)]
     for f in files:
         store.append ([f])
-    #for key, value in docs.items():
-    #    store.append ([value])
     treeview.set_model(store)
     rendererText = Gtk.CellRendererText()
     column = Gtk.TreeViewColumn("Defined User List", rendererText, text=0)
@@ -45,7 +41,12 @@ class Handler:
             mixer.music.pause()
             ispaused = True
             
-    
+    def setvolume(self, volume,nb = 1,n = 2):
+        v = vb.get_value()
+        mixer.music.set_volume(v)
+        
+#        Main        
+
 builder = Gtk.Builder()
 builder.add_from_file("player.glade")
 builder.connect_signals(Handler())
@@ -67,7 +68,11 @@ progress.set_text("player on")
 progress.pulse()
 treeview = builder.get_object("treeview1")
 treeviewItems()
+vb = builder.get_object("volume")
+
+
 window.show_all()
+
 
 
 Gtk.main()
