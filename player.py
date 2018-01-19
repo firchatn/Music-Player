@@ -21,6 +21,17 @@ def treeviewItems():
     column = Gtk.TreeViewColumn("Defined User List", rendererText, text=0)
     treeview.append_column(column)
 
+def progressplus():
+    if mixer.music.get_busy():
+        print("j")
+        new_value = progress.get_fraction() + 0.2
+
+        if new_value > 1:
+            new_value = 0
+
+        progress.set_fraction(new_value)
+        progress.pulse()
+
 
 class Handler:
     def onDeleteWindow(self, *args):
@@ -28,6 +39,7 @@ class Handler:
 
     def playmusic(self,play):
         mixer.music.play()
+        progressplus()
 
     def stopmusic(self,stop):
         mixer.music.stop()
@@ -65,15 +77,12 @@ progress = builder.get_object("progressbar1")
 progress.set_fraction(1)
 
 progress.set_text("player on")
+progress.set_show_text(True)
 progress.pulse()
 treeview = builder.get_object("treeview1")
 treeviewItems()
 vb = builder.get_object("volume")
-
-
+progressplus()
 window.show_all()
-
-
-
 Gtk.main()
 
