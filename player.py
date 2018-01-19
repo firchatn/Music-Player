@@ -23,14 +23,8 @@ def treeviewItems():
 
 def progressplus():
     if mixer.music.get_busy():
-        print("j")
-        new_value = progress.get_fraction() + 0.2
-
-        if new_value > 1:
-            new_value = 0
-
+        new_value = progress.get_fraction() + 0.02
         progress.set_fraction(new_value)
-        progress.pulse()
 
 
 class Handler:
