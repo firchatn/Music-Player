@@ -38,7 +38,11 @@ mixer.music.load('re.mp3')
 
 window = builder.get_object("window1")
 window.connect("delete-event", Gtk.main_quit)
-window.set_default_size(600, 500)
+window.set_default_size(700, 300)
+
+image = builder.get_object("image1")
+image.set_from_file('player.png')
+
 window.show_all()
 
 
