@@ -54,7 +54,7 @@ def choicefile(openfile):
     n += 1
     docs = openplaylist()
     print(len(docs))
-    docs[str(len(docs)+1)] = choice[n:]
+    docs[str(len(docs)+1)] = choice
     with open(pathdata, 'w') as outfile:
             json.dump(docs, outfile)
     updateplaylist(choice[n:])
@@ -70,8 +70,10 @@ def treeviewItems():
     #    store.append ([f])
     playlistitems = openplaylist()
     for key, value in playlistitems.items():
+        n = value.rfind('/')
+        n += 1
         print(key , value)
-        store.append([value])
+        store.append([value[n:]])
     treeview.set_model(store)
     rendererText = Gtk.CellRendererText()
     column = Gtk.TreeViewColumn("PlayList", rendererText, text=0)
