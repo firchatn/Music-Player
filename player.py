@@ -47,7 +47,8 @@ def progressplus():
     if mixer.music.get_busy():
         new_value = progress.get_fraction() + 0.02
         progress.set_fraction(new_value)
-
+        
+# class Handler Sginals
 
 class Handler:
     def onDeleteWindow(self, *args):
@@ -72,7 +73,16 @@ class Handler:
     def setvolume(self, volume,nb = 1,n = 2):
         v = vb.get_value()
         mixer.music.set_volume(v)
-        
+
+def initprogress():
+    progress.set_fraction(1)
+    progress.set_text("player on")
+    progress.set_show_text(True)
+    progress.pulse()
+
+def initvoulume():
+    v = vb.set_value(1)
+    mixer.music.set_volume(1)
 #        Main        
 
 builder = Gtk.Builder()
@@ -93,17 +103,15 @@ openfile = builder.get_object("imagemenuitem2")
 openfile.connect("activate", choicefile)
 
 progress = builder.get_object("progressbar1")
-progress.set_fraction(1)
+initprogress()
+progressplus()
 
-progress.set_text("player on")
-progress.set_show_text(True)
-progress.pulse()
 treeview = builder.get_object("treeview1")
 treeviewItems()
+
 vb = builder.get_object("volume")
-v = vb.set_value(1)
-mixer.music.set_volume(1)
-progressplus()
+initvoulume()
+
 window.show_all()
 Gtk.main()
 
