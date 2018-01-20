@@ -16,26 +16,12 @@ current = 'data/re.mp3'
 #     methods
 
 def onSelectionChanged(tree_selection) :
-    global current
     (model, pathlist) = tree_selection.get_selected_rows()
     for path in pathlist :
         tree_iter = model.get_iter(path)
         value = model.get_value(tree_iter,0)
-        print(value)
-        current = value
-        mixer.music.load(current)
+        mixer.music.load(value)
         mixer.music.play()
-
-
-def opend():
-    if doesFileExists(path):
-        json_data=open(path)
-        statistics = json.load(json_data)
-    else:
-        statistics = {"default": 1}
-        with open(path, 'w') as outfile:
-            json.dump(statistics, outfile)
-    return statistics
 
 def openplaylist():
     json_data=open(pathdata)
@@ -45,7 +31,6 @@ def openplaylist():
 def updateplaylist(choice):
     store.append([choice])
     
-
 def choicefile(openfile):
     filter = Gtk.FileFilter()
     filter.set_name("Music")
@@ -70,7 +55,7 @@ def choicefile(openfile):
     docs[str(len(docs)+1)] = choice
     with open(pathdata, 'w') as outfile:
             json.dump(docs, outfile)
-    updateplaylist(choice[n:])
+    updateplaylist(choice)
     dialog.destroy()
     progress.set_text(choice[n:])
     mixer.music.load(choice)
@@ -156,14 +141,12 @@ progressplus()
 
 treeview = builder.get_object("treeview1")
 treeviewItems()
+tree_selection = treeview.get_selection()
+tree_selection.connect("changed", onSelectionChanged)
 
 vb = builder.get_object("volume")
 initvoulume()
 
-
-tree_selection = treeview.get_selection()
-#tree_selection.set_mode(gtk.SELECTION_MULTIPLE)
-tree_selection.connect("changed", onSelectionChanged)
 window.show_all()
 Gtk.main()
 
