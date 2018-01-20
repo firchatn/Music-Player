@@ -11,8 +11,21 @@ import json
 ispaused = False
 pathdata = 'data/playlist.json'
 store = Gtk.ListStore(str)
+current = 'data/re.mp3'
 
 #     methods
+
+def onSelectionChanged(tree_selection) :
+    global current
+    (model, pathlist) = tree_selection.get_selected_rows()
+    for path in pathlist :
+        tree_iter = model.get_iter(path)
+        value = model.get_value(tree_iter,0)
+        print(value)
+        current = value
+        mixer.music.load(current)
+        mixer.music.play()
+
 
 def opend():
     if doesFileExists(path):
@@ -64,7 +77,6 @@ def choicefile(openfile):
     return choice
 
 def treeviewItems():
-    
     files = [f for f in os.listdir('.') if os.path.isfile(f)]
     #for f in files:
     #    store.append ([f])
@@ -73,7 +85,7 @@ def treeviewItems():
         n = value.rfind('/')
         n += 1
         print(key , value)
-        store.append([value[n:]])
+        store.append([value])
     treeview.set_model(store)
     rendererText = Gtk.CellRendererText()
     column = Gtk.TreeViewColumn("PlayList", rendererText, text=0)
@@ -126,7 +138,7 @@ builder.add_from_file("player.glade")
 builder.connect_signals(Handler())
 
 mixer.init()
-mixer.music.load('data/re.mp3')
+mixer.music.load(current)
 
 window = builder.get_object("window1")
 window.connect("delete-event", Gtk.main_quit)
@@ -148,6 +160,10 @@ treeviewItems()
 vb = builder.get_object("volume")
 initvoulume()
 
+
+tree_selection = treeview.get_selection()
+#tree_selection.set_mode(gtk.SELECTION_MULTIPLE)
+tree_selection.connect("changed", onSelectionChanged)
 window.show_all()
 Gtk.main()
 
