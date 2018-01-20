@@ -11,7 +11,6 @@ ispaused = False
 
 #     methods
 
-
 def choicefile(openfile):
     filter = Gtk.FileFilter()
     filter.set_name("Music")
@@ -30,8 +29,9 @@ def choicefile(openfile):
         return False
     choice = dialog.get_filename()
     dialog.destroy()
+    progress.set_text(choice)
+    mixer.music.load(choice)
     return choice
-
 
 def treeviewItems():
     store = Gtk.ListStore(str)
