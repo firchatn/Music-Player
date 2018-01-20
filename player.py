@@ -50,14 +50,16 @@ def choicefile(openfile):
     elif response == Gtk.ResponseType.CANCEL:
         return False
     choice = dialog.get_filename()
+    n = choice.rfind('/')
+    n += 1
     docs = openplaylist()
     print(len(docs))
-    docs[str(len(docs)+1)] = choice
+    docs[str(len(docs)+1)] = choice[n:]
     with open(pathdata, 'w') as outfile:
             json.dump(docs, outfile)
-    updateplaylist(choice)
+    updateplaylist(choice[n:])
     dialog.destroy()
-    progress.set_text(choice)
+    progress.set_text(choice[n:])
     mixer.music.load(choice)
     return choice
 
