@@ -11,6 +11,23 @@ ispaused = False
 
 #     methods
 
+
+def choicefile(openfile):
+    global imageschoice
+    dialog = Gtk.FileChooserDialog("Please choose a file", window,
+            Gtk.FileChooserAction.OPEN,
+            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+             Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+    response = dialog.run()
+    if response == Gtk.ResponseType.OK:
+        pass
+    elif response == Gtk.ResponseType.CANCEL:
+        return False
+    choice = dialog.get_filename()
+    dialog.destroy()
+    return choice
+
+
 def treeviewItems():
     store = Gtk.ListStore(str)
     files = [f for f in os.listdir('.') if os.path.isfile(f)]
@@ -66,6 +83,9 @@ window.set_default_size(700, 300)
 
 image = builder.get_object("image1")
 image.set_from_file('images/player.png')
+
+openfile = builder.get_object("imagemenuitem2")
+openfile.connect("activate", choicefile)
 
 progress = builder.get_object("progressbar1")
 progress.set_fraction(1)
