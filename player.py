@@ -13,11 +13,16 @@ ispaused = False
 
 
 def choicefile(openfile):
+    filter = Gtk.FileFilter()
+    filter.set_name("Music")
+    filter.add_mime_type("mp3")
+    filter.add_pattern("*.mp3")
     global imageschoice
     dialog = Gtk.FileChooserDialog("Please choose a file", window,
             Gtk.FileChooserAction.OPEN,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+    dialog.add_filter(filter)
     response = dialog.run()
     if response == Gtk.ResponseType.OK:
         pass
