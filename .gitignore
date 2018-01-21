@@ -1,0 +1,10 @@
+env/
+__pycache__/
+videolysis/__pycache__/
+*/__pycache__/
+*.py[cod]
+*.pot
+
+/data/*
+
+
