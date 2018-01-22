@@ -6,5 +6,6 @@ videolysis/__pycache__/
 *.pot
 
 /data/*
+/data/
 
 
