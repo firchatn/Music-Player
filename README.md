@@ -7,3 +7,5 @@
 
 * python player.py
 
+![Alt text](images/demo.png)
+
