@@ -12,6 +12,7 @@ ispaused = False
 pathdata = 'data/playlist.json'
 store = Gtk.ListStore(str)
 current = 'data/re.mp3'
+#current = '/home/firas/git/videolysis/records/audios/file.wav'
 
 #     methods
 
